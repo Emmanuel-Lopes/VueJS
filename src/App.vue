@@ -1,21 +1,19 @@
 <template>
   <div class="container justify-content-center p-0">
-    <h1 class="m-0 p-2">{{titulo}}</h1>
+    <h1 class="m-0 text-center p-2">{{titulo}}</h1>
+    <b-input-group size="sm" class="mb-2">
+      <b-input-group-prepend is-text>
+        <b-icon icon="search"/>
+      </b-input-group-prepend>
+      <input type="search" placeholder="Pesquise aqui"
+      @input="filtro=$event.target.value">
+    </b-input-group>
     <b-row cols-lg="4" cols-md="3" cols-sm="2">
-      <b-col v-for="(foto, index) in fotos" :key="index"
+      <b-col v-for="(foto, index) in filterPics" :key="index"
         class="p-4">
         <Card :foto="foto"/>
-
       </b-col>
-
     </b-row>
-    <!-- <h1 class="h1 text-center mb-4 mt-2">{{titulo}}</h1>  "ou v-text="titulo""
-      <ul class="d-flex flex-lg-row justify-content-between flex-sm-column">
-        <li class="m-4 border card rounded round-3 w-100 h-100 shadow-lg" v-for="(foto, index) in fotos" :key="index">
-          <h2 class="card-header text-center text-white bg-primary">{{foto.titulo}}</h2>
-          <div class="image rounded-bottom round-3" :style="`background-image: url('${foto.url}')`"></div>
-        </li>
-      </ul>  -->
   </div>
 </template>
 
@@ -28,6 +26,7 @@
       return {
        
         titulo: 'Criaturas Mitológicas',
+        filtro:'',
         fotos: [
           {
             url: 'https://images.tcdn.com.br/img/img_prod/664029/schleich_eldrador_creatures_lava_dragon_oficial_licenciado_3603_1_bdbf5236a4c5dc80d8478c901662016d.jpg',
@@ -64,8 +63,15 @@
         ]
       }
     },
-    methods: {
-
+    computed: {
+      filterPics() {
+        if (this.filtro) {
+          let regex = new RegExp(this.filtro.trim(), 'i');
+          return this.fotos.filter(foto => regex.test(foto.titulo));
+        } else {
+          return this.fotos;
+        }
+      }
     },
     components: {
       Card
