@@ -1,15 +1,9 @@
 <template>
   <div class="container justify-content-center p-0">
-    <h1 class="m-0 text-center p-2">{{titulo}}</h1>
-    <b-input-group size="sm" class="mb-2">
-      <b-input-group-prepend is-text>
-        <b-icon icon="search"/>
-      </b-input-group-prepend>
-      <input type="search" placeholder="Pesquise aqui"
-      @input="filtro=$event.target.value">
-    </b-input-group>
+    <h1 class="m-3 text-center p-2">{{titulo}}</h1>
+    <SearchBar @search-for="search"/>
     <b-row cols-lg="4" cols-md="3" cols-sm="2">
-      <b-col v-for="(foto, index) in filterPics" :key="index"
+      <b-col v-for="(foto, index) in fotosClone" :key="index"
         class="p-4">
         <Card :foto="foto"/>
       </b-col>
@@ -19,14 +13,15 @@
 
 <script>
   import Card from "./components/shared/Card/Card.vue"
+  import SearchBar from "./components/shared/searchBar/SearchBar.vue"
   export default {
 
     data() {
-
+    
       return {
        
         titulo: 'Criaturas Mitológicas',
-        filtro:'',
+        fotosClone: [],
         fotos: [
           {
             url: 'https://images.tcdn.com.br/img/img_prod/664029/schleich_eldrador_creatures_lava_dragon_oficial_licenciado_3603_1_bdbf5236a4c5dc80d8478c901662016d.jpg',
@@ -63,18 +58,17 @@
         ]
       }
     },
-    computed: {
-      filterPics() {
-        if (this.filtro) {
-          let regex = new RegExp(this.filtro.trim(), 'i');
-          return this.fotos.filter(foto => regex.test(foto.titulo));
-        } else {
-          return this.fotos;
-        }
+    methods: {
+      search(filtro) {
+        this.fotosClone = this.fotos.filter(foto => foto.titulo.toUpperCase().includes(filtro.toUpperCase()))
       }
     },
     components: {
-      Card
+      Card,
+      SearchBar
+    },
+    created() {
+      this.fotosClone = this.fotos;
     }
   }
 </script>
