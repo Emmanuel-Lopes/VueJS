@@ -3,26 +3,21 @@
       <b-card-body class="fw-bold text-white p-2">
         {{foto.titulo}}
       </b-card-body>
-      <b-card-img 
-      :src="foto.url"
-      :alt="foto.titulo" 
-      img-top
-      class="image rounded-bottom rounded-0"
-      />
+      <ResponsiveImg :url="foto.url" :titulo="foto.titulo"/>
   </b-card>
 </template>
 
 <script>
+  import ResponsiveImg from "../responsive-img/ResponsiveImg.vue"
   export default {
     props: {
       foto: Object
+    },
+    components: {
+      ResponsiveImg
     }
   }
 </script>
 
 <style scoped>
-  .image{
-    width: 100;
-    height: 150px;
-  }
 </style>>

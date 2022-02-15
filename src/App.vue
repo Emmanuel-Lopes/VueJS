@@ -12,8 +12,8 @@
 </template>
 
 <script>
-  import Card from "./components/shared/Card/Card.vue"
-  import SearchBar from "./components/shared/searchBar/SearchBar.vue"
+  import Card from "./components/shared/card/Card.vue"
+  import SearchBar from "./components/shared/search-bar/SearchBar.vue"
   export default {
 
     data() {
@@ -65,7 +65,7 @@
     },
     components: {
       Card,
-      SearchBar
+      SearchBar,
     },
     created() {
       this.fotosClone = this.fotos;
