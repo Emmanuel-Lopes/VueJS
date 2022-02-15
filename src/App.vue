@@ -1,7 +1,9 @@
 <template>
   <div class="container justify-content-center p-0">
       <NavBar :rotas="routes" />
-    <router-view></router-view>
+    <transition name="pagina">  
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -20,5 +22,11 @@
   }
 </script>
 
-<style>
+<style scoped>
+  .pagina-enter-active, .pagina-leave-active {
+    transition: opacity .3s
+  }
+  .pagina-enter, .pagina-leave-active {
+    opacity: 0
+  }
 </style>
