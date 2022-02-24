@@ -1,5 +1,5 @@
 <template>
-  <b-card no-body class="h-100 bg-primary shadow">
+  <b-card no-body v-expand-element class="h-100 bg-primary shadow">
       <b-card-body class="fw-bold text-white p-2">
         {{foto.titulo}}
       </b-card-body>
